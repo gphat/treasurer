@@ -6,8 +6,8 @@ case class Deploy(
   id: String,
   device: String,
   artifactId: String,
-  dateCreated: DateTime,
-  dateInternal: DateTime
+  dateCreated: DateTime = new DateTime(),
+  dateInternal: DateTime = new DateTime()
 )
 
 object DeployModel {

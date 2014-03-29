@@ -16,7 +16,7 @@ object JsonFormats {
     def reads(json: JsValue): JsResult[Artifact] = {
       JsSuccess(Artifact(
         id = (json \ "id").as[String],
-        version = (json \ "id").as[String],
+        version = (json \ "version").as[String],
         dateCreated = (json \ "dateCreated").as[Option[String]] map { d =>
           dateFormatterUTC.parseDateTime(d)
         }  getOrElse new DateTime(),
@@ -61,7 +61,7 @@ object JsonFormats {
 implicit object ProjectFormat extends Format[Project] {
     def reads(json: JsValue): JsResult[Project] = {
       JsSuccess(Project(
-        id = (json \ "id").as[String],
+        id = (json \ "id").as[Int],
         name = (json \ "name").as[String],
         dateCreated = (json \ "dateCreated").as[Option[String]] map { d =>
           dateFormatterUTC.parseDateTime(d)
@@ -71,7 +71,7 @@ implicit object ProjectFormat extends Format[Project] {
 
     def writes(obj: Project): JsValue = {
       toJson(Map(
-        "id" -> JsString(obj.id),
+        "id" -> JsNumber(obj.id),
         "name" -> JsString(obj.name),
         "dateCreated" -> JsString(dateFormatter.print(obj.dateCreated))
       ))

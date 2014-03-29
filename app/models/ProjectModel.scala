@@ -3,9 +3,9 @@ package models
 import org.joda.time.DateTime
 
 case class Project(
-  id: String,
+  id: Int,
   name: String,
-  dateCreated: DateTime
+  dateCreated: DateTime = new DateTime()
 )
 
 object ProjectModel {
