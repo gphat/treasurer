@@ -2,79 +2,65 @@ package util
 
 import models._
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Messages
-import play.api.libs.json.Json._
+
 import play.api.libs.json._
+import play.api.libs.json.Reads._
+import play.api.libs.functional.syntax._
 
 object JsonFormats {
 
-  val dateFormatter = DateTimeFormat.forPattern("yyyyMMdd'T'HHmmss'Z'")
-  val dateFormatterUTC = DateTimeFormat.forPattern("yyyyMMdd'T'HHmmss'Z'").withZoneUTC()
+  val artifactReads: Reads[Artifact] = (
+    (JsPath \ "id").read[String] and
+    (JsPath \ "version").read[String] and
+    (JsPath \ "dateCreated").read[DateTime] and
+    (JsPath \ "dateInternal").read[DateTime]
+  )(Artifact.apply _)
 
-  implicit object ArtifactFormat extends Format[Artifact] {
-    def reads(json: JsValue): JsResult[Artifact] = {
-      JsSuccess(Artifact(
-        id = (json \ "id").as[String],
-        version = (json \ "version").as[String],
-        dateCreated = (json \ "dateCreated").as[Option[String]] map { d =>
-          dateFormatterUTC.parseDateTime(d)
-        }  getOrElse new DateTime(),
-        dateInternal = new DateTime()
-      ))
-    }
+  val artifactWrites: Writes[Artifact] = (
+    (JsPath \ "id").write[String] and
+    (JsPath \ "version").write[String] and
+    (JsPath \ "dateCreated").write[DateTime] and
+    (JsPath \ "dateInternal").write[DateTime]
+  )(unlift(Artifact.unapply))
 
-    def writes(obj: Artifact): JsValue = {
-      toJson(Map(
-        "id" -> JsString(obj.id),
-        "version" -> JsString(obj.version),
-        "dateCreated" -> JsString(dateFormatter.print(obj.dateCreated)),
-        "dateInternal" -> JsString(dateFormatter.print(obj.dateCreated))
-      ))
-    }
-  }
+  implicit val artifactFormat: Format[Artifact] = Format(
+    artifactReads, artifactWrites
+  )
 
-  implicit object DeployFormat extends Format[Deploy] {
-    def reads(json: JsValue): JsResult[Deploy] = {
-      JsSuccess(Deploy(
-        id = (json \ "id").as[String],
-        device = (json \ "device").as[String],
-        artifactId = (json \ "artifactId").as[String],
-        dateCreated = (json \ "dateCreated").as[Option[String]] map { d =>
-          dateFormatterUTC.parseDateTime(d)
-        }  getOrElse new DateTime(),
-        dateInternal = new DateTime()
-      ))
-    }
+  val deployReads: Reads[Deploy] = (
+    (JsPath \ "id").readNullable[Int] and
+    (JsPath \ "device").read[String] and
+    (JsPath \ "artifactId").read[String] and
+    (JsPath \ "dateCreated").read[DateTime] and
+    (JsPath \ "dateInternal").read[DateTime]
+  )(Deploy.apply _)
 
-    def writes(obj: Deploy): JsValue = {
-      toJson(Map(
-        "id" -> JsString(obj.id),
-        "device" -> JsString(obj.device),
-        "artifactId" -> JsString(obj.artifactId),
-        "dateCreated" -> JsString(dateFormatter.print(obj.dateCreated)),
-        "dateInternal" -> JsString(dateFormatter.print(obj.dateCreated))
-      ))
-    }
-  }
+  val deployWrites: Writes[Deploy] = (
+    (JsPath \ "id").writeNullable[Int] and
+    (JsPath \ "device").write[String] and
+    (JsPath \ "artifactId").write[String] and
+    (JsPath \ "dateCreated").write[DateTime] and
+    (JsPath \ "dateInternal").write[DateTime]
+  )(unlift(Deploy.unapply))
 
-implicit object ProjectFormat extends Format[Project] {
-    def reads(json: JsValue): JsResult[Project] = {
-      JsSuccess(Project(
-        id = (json \ "id").as[Int],
-        name = (json \ "name").as[String],
-        dateCreated = (json \ "dateCreated").as[Option[String]] map { d =>
-          dateFormatterUTC.parseDateTime(d)
-        }  getOrElse new DateTime()
-      ))
-    }
+  implicit val deployFormat: Format[Deploy] = Format(
+    deployReads, deployWrites
+  )
 
-    def writes(obj: Project): JsValue = {
-      toJson(Map(
-        "id" -> JsNumber(obj.id),
-        "name" -> JsString(obj.name),
-        "dateCreated" -> JsString(dateFormatter.print(obj.dateCreated))
-      ))
-    }
-  }
+  val projectReads: Reads[Project] = (
+    (JsPath \ "id").readNullable[Int] and
+    (JsPath \ "name").read[String] and
+    (JsPath \ "dateCreated").read[DateTime]
+  )(Project.apply _)
+
+  val projectWrites: Writes[Project] = (
+    (JsPath \ "id").writeNullable[Int] and
+    (JsPath \ "name").write[String] and
+    (JsPath \ "dateCreated").write[DateTime]
+  )(unlift(Project.unapply))
+
+  implicit val projectFormat: Format[Project] = Format(
+    projectReads, projectWrites
+  )
 }

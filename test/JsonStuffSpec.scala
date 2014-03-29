@@ -22,12 +22,12 @@ class JsonStuffSpec extends Specification {
 
     "handle Project" in {
       val theDate = new DateTime()
-      val obj = Project(id = 1234, name = "Poop", dateCreated = theDate)
+      val obj = Project(id = Some(1234), name = "Poop", dateCreated = theDate)
       val jsonString = Json.toJson(obj).toString
 
       val deObj = Json.fromJson[Project](Json.parse(jsonString)).asOpt
       deObj must beSome
-      deObj.get.id must beEqualTo(1234)
+      deObj.get.id must beSome.which(_ == 1234)
       deObj.get.name must beEqualTo("Poop")
       dateFormatter.print(deObj.get.dateCreated) must beEqualTo(
         dateFormatter.print(theDate)
@@ -37,13 +37,14 @@ class JsonStuffSpec extends Specification {
     "handle Deploy" in {
       val theDate = new DateTime()
       val obj = Deploy(
-        id = "1234", device = "server", artifactId = "1.2.3",
+        id = Some(1234), device = "server", artifactId = "1.2.3",
         dateCreated = theDate
       )
       val jsonString = Json.toJson(obj).toString
 
       val deObj = Json.fromJson[Deploy](Json.parse(jsonString)).asOpt
       deObj must beSome
+      deObj.get.id must beSome.which(_ == 1234)
       deObj.get.device must beEqualTo("server")
       deObj.get.artifactId must beEqualTo("1.2.3")
       dateFormatter.print(deObj.get.dateCreated) must beEqualTo(
