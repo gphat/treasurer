@@ -1,4 +1,9 @@
-```sql
-CREATE DATABASE `treasurer` CHARACTER SET utf8 COLLATE utf8_general_ci;
-GRANT ALL ON `treasurer`.* TO `treasurer`@localhost IDENTIFIED BY 'abc123';
-```
+## Create A Database User & Database
+
+Create a user called `treasurer`:
+
+  CREATE USER treasurer;
+
+Create a database called `treasurer`.
+
+  CREATE DATABASE treasurer OWNER treasurer ENCODING 'utf8';
