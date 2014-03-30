@@ -7,6 +7,7 @@ GET     /                           controllers.Application.index
 
 GET     /1.0/projects               controllers.api.Project.index
 POST    /1.0/projects               controllers.api.Project.create
+GET     /1.0/projects/:id           controllers.api.Project.item(id: Long)
 DELETE  /1.0/projects/:id           controllers.api.Project.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

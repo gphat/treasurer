@@ -38,6 +38,13 @@ class ProjectAPISpec extends Specification {
       status(result.get) must equalTo(400)
     }
 
+    "verify missing get" in new WithApplication {
+      route(FakeRequest(
+        GET,
+        "/1.0/projects/123"
+      )) must beSome.which(status(_) == 404)
+    }
+
     "verify empty index" in new WithApplication {
       // Check index
       val index = route(FakeRequest(
@@ -70,6 +77,14 @@ class ProjectAPISpec extends Specification {
         GET,
         "/1.0/projects"
       )) must beSome.which(contentAsString(_).contains("poopButt"))
+
+      // Get it by id
+      val item = route(FakeRequest(
+        GET,
+        "/1.0/projects/" + proj.asOpt.get.id.get
+      ))
+      status(item.get) must beEqualTo(200)
+      contentAsString(item.get) must contain("poopButt")
 
       // Delete it
       route(FakeRequest(

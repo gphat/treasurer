@@ -33,4 +33,10 @@ object Project extends Controller {
   def index = Action {
     Ok(Json.toJson(ProjectModel.getAll))
   }
+
+  def item(id: Long) = Action {
+    ProjectModel.getById(id) map { project =>
+      Ok(Json.toJson(project))
+    } getOrElse(NotFound)
+  }
 }
