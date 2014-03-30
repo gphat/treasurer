@@ -39,4 +39,10 @@ object Artifact extends Controller {
       Ok(Json.toJson(project))
     } getOrElse(NotFound)
   }
+
+  def latest(projectId: Long) = Action {
+    ArtifactModel.getLatest(projectId) map { project =>
+      Ok(Json.toJson(project))
+    } getOrElse(NotFound)
+  }
 }

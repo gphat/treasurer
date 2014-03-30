@@ -19,6 +19,7 @@ object ArtifactModel {
 
   val allByProjectQuery = SQL("SELECT * FROM artifacts WHERE project_id={project_id}")
   val getByIdQuery = SQL("SELECT * FROM artifacts WHERE id={id} AND project_id={project_id}")
+  val getLatestQuery = SQL("SELECT * FROM artifacts ORDER BY date_created DESC LIMIT 1")
   val insertQuery = SQL("INSERT INTO artifacts (id, project_id, version, url, date_created, date_internal) VALUES ({id}, {project_id}, {version}, {url}, {date_created}, {date_internal})")
   val deleteQuery = SQL("DELETE FROM artifacts WHERE project_id={project_id} AND id={id}")
 
@@ -83,6 +84,18 @@ object ArtifactModel {
     DB.withConnection { implicit conn =>
       getByIdQuery.on(
         'id -> id,
+        'project_id -> projectId
+      ).as(artifact.singleOpt)
+    }
+  }
+
+  /**
+   * Get latest artifact.
+   */
+  def getLatest(projectId: Long): Option[Artifact] = {
+
+    DB.withConnection { implicit conn =>
+      getLatestQuery.on(
         'project_id -> projectId
       ).as(artifact.singleOpt)
     }

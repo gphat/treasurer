@@ -14,6 +14,7 @@ GET     /1.0/projects/:projectId/artifacts      controllers.api.project.Artifact
 POST    /1.0/projects/:projectId/artifacts      controllers.api.project.Artifact.create(projectId: Long)
 GET     /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact.item(projectId: Long, id: String)
 DELETE  /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact.delete(projectId: Long, id: String)
+GET     /1.0/projects/:projectId/latest         controllers.api.project.Artifact.latest(projectId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

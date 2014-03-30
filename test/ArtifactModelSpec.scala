@@ -34,6 +34,11 @@ class ArtifactModelSpec extends Specification {
       val allOfEm = ArtifactModel.getAllForProject(project.id.get)
       allOfEm.length must beEqualTo(1)
 
+      // Latest?
+      val latest = ArtifactModel.getLatest(project.id.get)
+      latest must beSome
+      latest.get.id must beEqualTo("abc123")
+
       // Clean up!
       val oid = createResult.get.id
       ArtifactModel.deleteById(project.id.get, oid)

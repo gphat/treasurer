@@ -14,51 +14,57 @@ class ArtifactAPISpec extends Specification {
 
   "Artifact API" should {
 
-    // "send 400 on a non-json post" in new WithApplication {
-    //   val result = route(FakeRequest(
-    //     POST,
-    //     "/1.0/projects",
-    //     FakeHeaders(),
-    //     "some text"
-    //   ))
-    //   result must beSome
-    //   status(result.get) must equalTo(400)
-    // }
+    "send 400 on a non-json post" in new WithApplication {
+      val result = route(FakeRequest(
+        POST,
+        "/1.0/projects",
+        FakeHeaders(),
+        "some text"
+      ))
+      result must beSome
+      status(result.get) must equalTo(400)
+    }
 
-    // "send 400 on a malformed json post" in new WithApplication {
-    //   val result = route(FakeRequest(
-    //     POST,
-    //     "/1.0/projects",
-    //     FakeHeaders(),
-    //     Json.obj(
-    //       "poop" -> "butt"
-    //     )
-    //   ))
-    //   result must beSome
-    //   status(result.get) must equalTo(400)
-    // }
+    "send 400 on a malformed json post" in new WithApplication {
+      val result = route(FakeRequest(
+        POST,
+        "/1.0/projects",
+        FakeHeaders(),
+        Json.obj(
+          "poop" -> "butt"
+        )
+      ))
+      result must beSome
+      status(result.get) must equalTo(400)
+    }
 
-    // "verify missing get" in new WithApplication {
-    //   route(FakeRequest(
-    //     GET,
-    //     "/1.0/projects/123"
-    //   )) must beSome.which(status(_) == 404)
-    // }
+    "verify missing get" in new WithApplication {
+      route(FakeRequest(
+        GET,
+        "/1.0/projects/123"
+      )) must beSome.which(status(_) == 404)
+    }
 
-    // "verify empty index" in new WithApplication {
-    //   // Check index
-    //   val index = route(FakeRequest(
-    //     GET,
-    //     "/1.0/projects"
-    //   ))
-    //   index must beSome
-    //   status(index.get) must beEqualTo(200)
-    //   contentAsString(index.get) must beEqualTo("[]")
-    // }
+    "verify empty index" in new WithApplication {
+      // Check index
+      val index = route(FakeRequest(
+        GET,
+        "/1.0/projects"
+      ))
+      index must beSome
+      status(index.get) must beEqualTo(200)
+      contentAsString(index.get) must beEqualTo("[]")
+    }
 
     "send proper codes for create and delete" in new WithApplication {
 
       val project = ProjectModel.create(Project(name = "Stankonia")).get
+
+      // No latest
+      route(FakeRequest(
+        GET,
+        "/1.0/projects/" + project.id.get + "/latest"
+      )) must beSome.which(status(_) must beEqualTo(404))
 
       // Make an artifact
       val result = route(FakeRequest(
@@ -90,6 +96,14 @@ class ArtifactAPISpec extends Specification {
       ))
       status(item.get) must beEqualTo(200)
       contentAsString(item.get) must contain("abc123")
+
+      // Get the latest
+      val latest = route(FakeRequest(
+        GET,
+        "/1.0/projects/" + project.id.get + "/latest"
+      ))
+      status(latest.get) must beEqualTo(200)
+      contentAsString(latest.get) must contain("abc123")
 
       // Delete it
       route(FakeRequest(
