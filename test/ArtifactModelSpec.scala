@@ -22,7 +22,8 @@ class ArtifactModelSpec extends Specification {
 
       val obj = Artifact(
         id = "abc123",
-        version = "1.2.3"
+        version = "1.2.3",
+        url = "http://www.example.com/poop.zip"
       )
 
       // Make one!
@@ -30,7 +31,7 @@ class ArtifactModelSpec extends Specification {
       createResult must beSome
 
       // Count 'em
-      val allOfEm = ArtifactModel.getAll
+      val allOfEm = ArtifactModel.getAllForProject(project.id.get)
       allOfEm.length must beEqualTo(1)
 
       // Clean up!

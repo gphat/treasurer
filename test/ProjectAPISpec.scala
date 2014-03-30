@@ -89,11 +89,7 @@ class ProjectAPISpec extends Specification {
       // Delete it
       route(FakeRequest(
         DELETE,
-        "/1.0/projects/" + proj.asOpt.get.id.get,
-        FakeHeaders(),
-        Json.obj(
-          "name" -> "poopButt"
-        )
+        "/1.0/projects/" + proj.asOpt.get.id.get
       )) must beSome.which(status(_) == 204) // Make sure we get a no content
     }
   }

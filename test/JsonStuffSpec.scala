@@ -56,7 +56,8 @@ class JsonStuffSpec extends Specification {
       val theDate = new DateTime()
       val obj = Artifact(
         id = "1234", version = "1.2.3",
-        dateCreated = Some(theDate)
+        dateCreated = Some(theDate),
+        url = "http://www.example.com/poop.zip"
       )
       val jsonString = Json.toJson(obj).toString
 
@@ -64,6 +65,7 @@ class JsonStuffSpec extends Specification {
       deObj must beSome
       deObj.get.id must beEqualTo("1234")
       deObj.get.version must beEqualTo("1.2.3")
+      deObj.get.url must beEqualTo("http://www.example.com/poop.zip")
       dateFormatter.print(deObj.get.dateCreated.get) must beEqualTo(
         dateFormatter.print(theDate)
       )

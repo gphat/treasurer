@@ -13,6 +13,7 @@ object JsonFormats {
   val artifactReads: Reads[Artifact] = (
     (JsPath \ "id").read[String] and
     (JsPath \ "version").read[String] and
+    (JsPath \ "url").read[String] and
     (JsPath \ "dateCreated").readNullable[DateTime] and
     (JsPath \ "dateInternal").readNullable[DateTime]
   )(Artifact.apply _)
@@ -20,6 +21,7 @@ object JsonFormats {
   val artifactWrites: Writes[Artifact] = (
     (JsPath \ "id").write[String] and
     (JsPath \ "version").write[String] and
+    (JsPath \ "url").write[String] and
     (JsPath \ "dateCreated").writeNullable[DateTime] and
     (JsPath \ "dateInternal").writeNullable[DateTime]
   )(unlift(Artifact.unapply))

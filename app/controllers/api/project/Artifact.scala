@@ -1,4 +1,4 @@
-package controllers.api
+package controllers.api.project
 
 import models._
 import play.api._
@@ -30,8 +30,8 @@ object Artifact extends Controller {
     NoContent
   }
 
-  def index = Action {
-    Ok(Json.toJson(ProjectModel.getAll))
+  def index(projectId: Long) = Action {
+    Ok(Json.toJson(ArtifactModel.getAllForProject(projectId)))
   }
 
   def item(projectId: Long, id: String) = Action {
