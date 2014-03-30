@@ -11,14 +11,22 @@ object Project extends Controller {
   def create = Action(BodyParsers.parse.json) { request =>
     request.body.validate[Project] fold(
       valid = { project =>
-        Created("ok")
+        ProjectModel.create(project) map { result =>
+          Created(Json.toJson(result))
+        } getOrElse {
+          InternalServerError
+        }
       },
       invalid = { errors =>
         BadRequest(Json.obj(
-          "status" -> "KO",
           "message" -> JsError.toFlatJson(errors)
         ))
       }
     )
+  }
+
+  def delete(id: Long) = Action {
+    ProjectModel.deleteById(id)
+    NoContent
   }
 }

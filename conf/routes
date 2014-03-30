@@ -6,6 +6,7 @@
 GET     /                           controllers.Application.index
 
 POST    /1.0/project                controllers.api.Project.create
+DELETE  /1.0/project/:id            controllers.api.Project.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

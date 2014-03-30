@@ -1,3 +1,6 @@
+import models._
+import util.JsonFormats._
+
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
@@ -32,11 +35,11 @@ class ProjectAPISpec extends Specification {
         )
       ))
       result must beSome
-      contentAsString(result.get) must contain("KO")
       status(result.get) must equalTo(400)
     }
 
-    "send 201 on a good post" in new WithApplication {
+    "send proper codes for create and delete" in new WithApplication {
+      // Make a project
       val result = route(FakeRequest(
         POST,
         "/1.0/project",
@@ -45,8 +48,21 @@ class ProjectAPISpec extends Specification {
           "name" -> "poopButt"
         )
       ))
-      result must beSome
-      status(result.get) must equalTo(201)
+
+      // Verify we got one back
+      result must beSome.which(status(_) == 201)
+      val proj = Json.fromJson[Project](contentAsJson(result.get))
+      proj.asOpt must beSome
+
+      // Delete it
+      route(FakeRequest(
+        DELETE,
+        "/1.0/project/" + proj.asOpt.get.id.get,
+        FakeHeaders(),
+        Json.obj(
+          "name" -> "poopButt"
+        )
+      )) must beSome.which(status(_) == 204) // Make sure we get a no content
     }
   }
 }

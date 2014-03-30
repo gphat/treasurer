@@ -36,7 +36,7 @@ object ProjectModel {
     DB.withConnection { implicit conn =>
       insertQuery.on(
         'name -> project.name,
-        'date_created -> project.dateCreated
+        'date_created -> project.dateCreated.getOrElse(new DateTime())
       ).executeInsert() map { id =>
         getById(id)
       } getOrElse(None)
