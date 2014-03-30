@@ -20,6 +20,10 @@ class ProjectModelSpec extends Specification {
       val createResult = ProjectModel.create(obj)
       createResult must beSome
 
+      // Count 'em
+      val allOfEm = ProjectModel.getAll
+      allOfEm.length must beEqualTo(1)
+
       // Clean up!
       val oid = createResult.get.id.get
       ProjectModel.deleteById(oid)

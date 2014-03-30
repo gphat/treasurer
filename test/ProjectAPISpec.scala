@@ -17,7 +17,7 @@ class ProjectAPISpec extends Specification {
     "send 400 on a non-json post" in new WithApplication {
       val result = route(FakeRequest(
         POST,
-        "/1.0/project",
+        "/1.0/projects",
         FakeHeaders(),
         "some text"
       ))
@@ -28,7 +28,7 @@ class ProjectAPISpec extends Specification {
     "send 400 on a malformed json post" in new WithApplication {
       val result = route(FakeRequest(
         POST,
-        "/1.0/project",
+        "/1.0/projects",
         FakeHeaders(),
         Json.obj(
           "poop" -> "butt"
@@ -38,11 +38,22 @@ class ProjectAPISpec extends Specification {
       status(result.get) must equalTo(400)
     }
 
+    "verify empty index" in new WithApplication {
+      // Check index
+      val index = route(FakeRequest(
+        GET,
+        "/1.0/projects"
+      ))
+      index must beSome
+      status(index.get) must beEqualTo(200)
+      contentAsString(index.get) must beEqualTo("[]")
+    }
+
     "send proper codes for create and delete" in new WithApplication {
       // Make a project
       val result = route(FakeRequest(
         POST,
-        "/1.0/project",
+        "/1.0/projects",
         FakeHeaders(),
         Json.obj(
           "name" -> "poopButt"
@@ -54,10 +65,16 @@ class ProjectAPISpec extends Specification {
       val proj = Json.fromJson[Project](contentAsJson(result.get))
       proj.asOpt must beSome
 
+      // Check index
+      val index = route(FakeRequest(
+        GET,
+        "/1.0/projects"
+      )) must beSome.which(contentAsString(_).contains("poopButt"))
+
       // Delete it
       route(FakeRequest(
         DELETE,
-        "/1.0/project/" + proj.asOpt.get.id.get,
+        "/1.0/projects/" + proj.asOpt.get.id.get,
         FakeHeaders(),
         Json.obj(
           "name" -> "poopButt"

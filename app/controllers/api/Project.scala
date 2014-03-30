@@ -29,4 +29,8 @@ object Project extends Controller {
     ProjectModel.deleteById(id)
     NoContent
   }
+
+  def index = Action {
+    Ok(Json.toJson(ProjectModel.getAll))
+  }
 }

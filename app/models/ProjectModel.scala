@@ -15,6 +15,7 @@ case class Project(
 
 object ProjectModel {
 
+  val allQuery = SQL("SELECT * FROM projects")
   val getByIdQuery = SQL("SELECT * FROM projects WHERE id={id}")
   val insertQuery = SQL("INSERT INTO projects (name, date_created) VALUES ({name}, {date_created})")
   val deleteQuery = SQL("DELETE FROM projects WHERE id={id}")
@@ -49,6 +50,16 @@ object ProjectModel {
   def deleteById(id: Long) {
     DB.withConnection { implicit conn =>
       deleteQuery.on('id -> id).execute
+    }
+  }
+
+  /**
+   * Get all projects.
+   */
+  def getAll: List[Project] = {
+
+    DB.withConnection { implicit conn =>
+      allQuery.as(project.*)
     }
   }
 
