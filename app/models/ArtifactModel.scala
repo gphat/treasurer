@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 case class Artifact(
   id: String,
   version: String,
-  dateCreated: DateTime = new DateTime(),
-  dateInternal: DateTime = new DateTime()
+  dateCreated: Option[DateTime] = Some(new DateTime()),
+  dateInternal: Option[DateTime] = Some(new DateTime())
 )
 
 object ArtifactModel {

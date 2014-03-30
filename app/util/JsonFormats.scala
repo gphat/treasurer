@@ -13,15 +13,15 @@ object JsonFormats {
   val artifactReads: Reads[Artifact] = (
     (JsPath \ "id").read[String] and
     (JsPath \ "version").read[String] and
-    (JsPath \ "dateCreated").read[DateTime] and
-    (JsPath \ "dateInternal").read[DateTime]
+    (JsPath \ "dateCreated").readNullable[DateTime] and
+    (JsPath \ "dateInternal").readNullable[DateTime]
   )(Artifact.apply _)
 
   val artifactWrites: Writes[Artifact] = (
     (JsPath \ "id").write[String] and
     (JsPath \ "version").write[String] and
-    (JsPath \ "dateCreated").write[DateTime] and
-    (JsPath \ "dateInternal").write[DateTime]
+    (JsPath \ "dateCreated").writeNullable[DateTime] and
+    (JsPath \ "dateInternal").writeNullable[DateTime]
   )(unlift(Artifact.unapply))
 
   implicit val artifactFormat: Format[Artifact] = Format(
@@ -29,19 +29,19 @@ object JsonFormats {
   )
 
   val deployReads: Reads[Deploy] = (
-    (JsPath \ "id").readNullable[Int] and
+    (JsPath \ "id").readNullable[Long] and
     (JsPath \ "device").read[String] and
     (JsPath \ "artifactId").read[String] and
-    (JsPath \ "dateCreated").read[DateTime] and
-    (JsPath \ "dateInternal").read[DateTime]
+    (JsPath \ "dateCreated").readNullable[DateTime] and
+    (JsPath \ "dateInternal").readNullable[DateTime]
   )(Deploy.apply _)
 
   val deployWrites: Writes[Deploy] = (
-    (JsPath \ "id").writeNullable[Int] and
+    (JsPath \ "id").writeNullable[Long] and
     (JsPath \ "device").write[String] and
     (JsPath \ "artifactId").write[String] and
-    (JsPath \ "dateCreated").write[DateTime] and
-    (JsPath \ "dateInternal").write[DateTime]
+    (JsPath \ "dateCreated").writeNullable[DateTime] and
+    (JsPath \ "dateInternal").writeNullable[DateTime]
   )(unlift(Deploy.unapply))
 
   implicit val deployFormat: Format[Deploy] = Format(
@@ -49,15 +49,15 @@ object JsonFormats {
   )
 
   val projectReads: Reads[Project] = (
-    (JsPath \ "id").readNullable[Int] and
+    (JsPath \ "id").readNullable[Long] and
     (JsPath \ "name").read[String] and
-    (JsPath \ "dateCreated").read[DateTime]
+    (JsPath \ "dateCreated").readNullable[DateTime]
   )(Project.apply _)
 
   val projectWrites: Writes[Project] = (
-    (JsPath \ "id").writeNullable[Int] and
+    (JsPath \ "id").writeNullable[Long] and
     (JsPath \ "name").write[String] and
-    (JsPath \ "dateCreated").write[DateTime]
+    (JsPath \ "dateCreated").writeNullable[DateTime]
   )(unlift(Project.unapply))
 
   implicit val projectFormat: Format[Project] = Format(

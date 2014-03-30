@@ -9,9 +9,9 @@ import play.api.test.Helpers._
 @RunWith(classOf[JUnitRunner])
 class ProjectAPISpec extends Specification {
 
-  "Application" should {
+  "Project API" should {
 
-    "send 400 on a non-json post" in new WithApplication{
+    "send 400 on a non-json post" in new WithApplication {
       val result = route(FakeRequest(
         POST,
         "/1.0/project",
@@ -22,7 +22,7 @@ class ProjectAPISpec extends Specification {
       status(result.get) must equalTo(400)
     }
 
-    "send 400 on a malformed json post" in new WithApplication{
+    "send 400 on a malformed json post" in new WithApplication {
       val result = route(FakeRequest(
         POST,
         "/1.0/project",
@@ -32,7 +32,21 @@ class ProjectAPISpec extends Specification {
         )
       ))
       result must beSome
+      contentAsString(result.get) must contain("KO")
       status(result.get) must equalTo(400)
+    }
+
+    "send 201 on a good post" in new WithApplication {
+      val result = route(FakeRequest(
+        POST,
+        "/1.0/project",
+        FakeHeaders(),
+        Json.obj(
+          "name" -> "poopButt"
+        )
+      ))
+      result must beSome
+      status(result.get) must equalTo(201)
     }
   }
 }

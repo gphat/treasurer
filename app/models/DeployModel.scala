@@ -3,11 +3,11 @@ package models
 import org.joda.time.DateTime
 
 case class Deploy(
-  id: Option[Int] = None,
+  id: Option[Long] = None,
   device: String,
   artifactId: String,
-  dateCreated: DateTime = new DateTime(),
-  dateInternal: DateTime = new DateTime()
+  dateCreated: Option[DateTime] = Some(new DateTime()),
+  dateInternal: Option[DateTime] = Some(new DateTime())
 )
 
 object DeployModel {

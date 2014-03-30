@@ -22,14 +22,14 @@ class JsonStuffSpec extends Specification {
 
     "handle Project" in {
       val theDate = new DateTime()
-      val obj = Project(id = Some(1234), name = "Poop", dateCreated = theDate)
+      val obj = Project(id = Some(1234), name = "Poop", dateCreated = Some(theDate))
       val jsonString = Json.toJson(obj).toString
 
       val deObj = Json.fromJson[Project](Json.parse(jsonString)).asOpt
       deObj must beSome
       deObj.get.id must beSome.which(_ == 1234)
       deObj.get.name must beEqualTo("Poop")
-      dateFormatter.print(deObj.get.dateCreated) must beEqualTo(
+      dateFormatter.print(deObj.get.dateCreated.get) must beEqualTo(
         dateFormatter.print(theDate)
       )
     }
@@ -38,7 +38,7 @@ class JsonStuffSpec extends Specification {
       val theDate = new DateTime()
       val obj = Deploy(
         id = Some(1234), device = "server", artifactId = "1.2.3",
-        dateCreated = theDate
+        dateCreated = Some(theDate)
       )
       val jsonString = Json.toJson(obj).toString
 
@@ -47,7 +47,7 @@ class JsonStuffSpec extends Specification {
       deObj.get.id must beSome.which(_ == 1234)
       deObj.get.device must beEqualTo("server")
       deObj.get.artifactId must beEqualTo("1.2.3")
-      dateFormatter.print(deObj.get.dateCreated) must beEqualTo(
+      dateFormatter.print(deObj.get.dateCreated.get) must beEqualTo(
         dateFormatter.print(theDate)
       )
     }
@@ -56,7 +56,7 @@ class JsonStuffSpec extends Specification {
       val theDate = new DateTime()
       val obj = Artifact(
         id = "1234", version = "1.2.3",
-        dateCreated = theDate
+        dateCreated = Some(theDate)
       )
       val jsonString = Json.toJson(obj).toString
 
@@ -64,7 +64,7 @@ class JsonStuffSpec extends Specification {
       deObj must beSome
       deObj.get.id must beEqualTo("1234")
       deObj.get.version must beEqualTo("1.2.3")
-      dateFormatter.print(deObj.get.dateCreated) must beEqualTo(
+      dateFormatter.print(deObj.get.dateCreated.get) must beEqualTo(
         dateFormatter.print(theDate)
       )
     }
