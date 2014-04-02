@@ -11,7 +11,7 @@ import util.JsonFormats._
 
 object Artifact extends Controller {
 
-  val dateFormat = ISODateTimeFormat.dateTime()
+  val dateFormat = ISODateTimeFormat.dateTimeParser()
 
   def create(projectId: Long) = Action(BodyParsers.parse.json) { request =>
     request.body.validate[Artifact] fold(
@@ -37,7 +37,7 @@ object Artifact extends Controller {
 
   def index(projectId: Long, offset: Option[Int] = None, date: Option[String]) = Action {
 
-    // This kinda sucks. Not happy with this. XXX
+    // This kinda sucks. Not happy with this. Different URLs?
     if(date.isDefined) {
       Try {
         dateFormat.parseDateTime(date.get)
