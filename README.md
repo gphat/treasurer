@@ -1,8 +1,8 @@
 # Treasurer
 
-Treasurer is a service for managing project artifacts. Artifacts are files that
-are the result of your development processes. JARs, tarballs, images or whatever
-else!
+Treasurer is a REST service for managing project artifacts. Artifacts are files
+that are the result of your development processes. JARs, tarballs, images or
+whatever else!
 
 **Treasurer doesn't store artifacts, just URLs to them!** Treasurer's intent is
 to provide a directory service for finding artifacts using your criteria.
@@ -10,7 +10,7 @@ to provide a directory service for finding artifacts using your criteria.
 # Concepts
 
 A `Project` is a container for `Artifacts`. **Artifacts are versioned by date and
-have a URL. Treasurer makes no effort to sort version numbers. The URL is where
+have a URL. Treasurer makes no effort to sort version numbers.** The URL is where
 an interested party might go to find the artifact itself.
 
 **Example:** You have a HelloApp at your company. Your CI system runs all the tests
