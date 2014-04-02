@@ -9,7 +9,7 @@ to provide a directory service for finding artifacts using your criteria.
 
 # Installing
 
-See INSTALL.md
+See [INSTALL.md](INSTALL.md)
 
 # Concepts
 
