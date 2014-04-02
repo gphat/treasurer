@@ -1,3 +1,5 @@
+# Treasurer
+
 Treasurer is a service for managing project artifacts. Artifacts are files that
 are the result of your development processes. JARs, tarballs, images or whatever
 else!
