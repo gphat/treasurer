@@ -26,10 +26,10 @@ deploy — you make a call to Treasurer confirming.
 Now other parts of your infrastructure can easily query Treasurer and ask the
 following questions:
 
-* Where is the latest artifact for HelloApp:master?: `project/n/latest`
-* When was the last artifact built?: `project/n/latest`
-* What was git SHA of the latest artifact?: `project/n/latest`
-* Where is the previous artifact for HelloApp:master, in case I need to roll back.
+* Where is the latest artifact for HelloApp:master?: `/1.0/project/n/latest`
+* When was the last artifact built?: `/1.0/project/n/latest`
+* What was git SHA of the latest artifact?: `/1.0/project/n/latest`
+* Where is the previous artifact for HelloApp:master, in case I need to roll back?: `/1.0/projects/1/artifacts?offset=1`
 * What was the git SHA of the current build as of an arbitrary date in the past?
 * What git SHA was server dc01-prod-app-0001 running on an arbitrary date?
 
@@ -80,6 +80,12 @@ curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/proje
 curl -X GET http://localhost:9000/1.0/projects/1/artifacts
 ```
 
+## Get Previous Artifacts for a Project (offset from current)
+
+```bash
+curl -X GET http://localhost:9000/1.0/projects/1/artifacts?offset=1
+```
+
 ## Get the Latest Artifact for a Project
 
 ```bash
@@ -90,6 +96,21 @@ curl -X GET http://localhost:9000/1.0/projects/1/latest
 
 ```bash
 curl -X GET http://localhost:9000/1.0/projects/1/artifacts/7217c408
+```
+
+## Get the Artifact Before the Current Artifact
+
+```bash
+curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?offset=1"
+```
+
+
+## Get the Latest Artifact for a Given Date
+
+Note that this expects ISO8601 dates.
+
+```bash
+curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?date=2014-04-02T08:14:16Z"
 ```
 
 ## Delete an Artifact

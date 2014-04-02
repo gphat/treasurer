@@ -1,12 +1,17 @@
 package controllers.api.project
 
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 import models._
 import play.api._
 import play.api.libs.json.{Json,JsError}
 import play.api.mvc._
+import scala.util.Try
 import util.JsonFormats._
 
 object Artifact extends Controller {
+
+  val dateFormat = ISODateTimeFormat.dateTime()
 
   def create(projectId: Long) = Action(BodyParsers.parse.json) { request =>
     request.body.validate[Artifact] fold(
@@ -30,8 +35,24 @@ object Artifact extends Controller {
     NoContent
   }
 
-  def index(projectId: Long) = Action {
-    Ok(Json.toJson(ArtifactModel.getAllForProject(projectId)))
+  def index(projectId: Long, offset: Option[Int] = None, date: Option[String]) = Action {
+
+    // This kinda sucks. Not happy with this. XXX
+    if(date.isDefined) {
+      Try {
+        dateFormat.parseDateTime(date.get)
+      } map { dt =>
+        Ok(Json.toJson(ArtifactModel.getByDate(projectId, dt)))
+      } getOrElse {
+        BadRequest(Json.obj(
+          "message" -> "Bad date format, please use ISO 8601"
+        ))
+      }
+    } else if(offset.isDefined) {
+      Ok(Json.toJson(ArtifactModel.getByIndex(projectId, offset.get)))
+    } else {
+      Ok(Json.toJson(ArtifactModel.getAllForProject(projectId)))
+    }
   }
 
   def item(projectId: Long, id: String) = Action {

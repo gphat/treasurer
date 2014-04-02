@@ -10,7 +10,7 @@ POST    /1.0/projects               controllers.api.Project.create
 GET     /1.0/projects/:id           controllers.api.Project.item(id: Long)
 DELETE  /1.0/projects/:id           controllers.api.Project.delete(id: Long)
 
-GET     /1.0/projects/:projectId/artifacts      controllers.api.project.Artifact.index(projectId: Long)
+GET     /1.0/projects/:projectId/artifacts      controllers.api.project.Artifact.index(projectId: Long, offset: Option[Int], date: Option[String])
 POST    /1.0/projects/:projectId/artifacts      controllers.api.project.Artifact.create(projectId: Long)
 GET     /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact.item(projectId: Long, id: String)
 DELETE  /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact.delete(projectId: Long, id: String)
