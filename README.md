@@ -7,6 +7,10 @@ whatever else!
 **Treasurer doesn't store artifacts, just URLs to them!** Treasurer's intent is
 to provide a directory service for finding artifacts using your criteria.
 
+# Installing
+
+See INSTALL.md
+
 # Concepts
 
 A `Project` is a container for `Artifacts`. **Artifacts are versioned by date and
@@ -120,3 +124,9 @@ curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?date=2014-04-02T08:1
 ```bash
 curl -X DELETE http://localhost:9000/1.0/projects/1/artifacts/7217c408
 ```
+
+# Requirements
+
+Treasurer is written in [Scala](http://www.scala-lang.org/) using the
+[Play Framework](http://www.playframework.com/). It uses
+[PostgreSQL](http://www.postgresql.org/) as a store.
