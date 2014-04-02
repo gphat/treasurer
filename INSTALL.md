@@ -45,4 +45,4 @@ Run the app!
 (Server started, use Ctrl+D to stop and go back to the console...)
 ```
 
-Visit http://localhost:9000 and you'll see an "ok"
+Visit [http://localhost:9000](http://localhost:9000) and you'll see an "ok"
