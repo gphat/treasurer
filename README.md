@@ -4,14 +4,14 @@ Treasurer is a service for managing project artifacts. Artifacts are files that
 are the result of your development processes. JARs, tarballs, images or whatever
 else!
 
-**Treasurer doesn't store artifacts, just pointers to them!** Treasurer's intent is
+**Treasurer doesn't store artifacts, just URLs to them!** Treasurer's intent is
 to provide a directory service for finding artifacts using your criteria.
 
 # Concepts
 
-A `Project` is a container for `Artifacts`. Artifacts are versioned by date and
-have a URL. The URL is where an interested party might go to find the artifact
-itself.
+A `Project` is a container for `Artifacts`. **Artifacts are versioned by date and
+have a URL. Treasurer makes no effort to sort version numbers. The URL is where
+an interested party might go to find the artifact itself.
 
 **Example:** You have a HelloApp at your company. Your CI system runs all the tests
 and verifies the latest merge to master works. At the end of it's run the CI
@@ -30,7 +30,7 @@ following questions:
 * When was the last artifact built?: `/1.0/project/n/latest`
 * What was git SHA of the latest artifact?: `/1.0/project/n/latest`
 * Where is the previous artifact for HelloApp:master, in case I need to roll back?: `/1.0/projects/1/artifacts?offset=1`
-* What was the git SHA of the current build as of an arbitrary date in the past?
+* What was the git SHA of the current build as of an arbitrary date in the past?: `/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`
 * What git SHA was server dc01-prod-app-0001 running on an arbitrary date?
 
 # Examples
@@ -103,7 +103,6 @@ curl -X GET http://localhost:9000/1.0/projects/1/artifacts/7217c408
 ```bash
 curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?offset=1"
 ```
-
 
 ## Get the Latest Artifact for a Given Date
 
