@@ -4,11 +4,15 @@
 
 Create a user called `treasurer`:
 
-  CREATE USER treasurer;
+```sql
+CREATE USER treasurer;
+```
 
 Create a database called `treasurer`.
 
-  CREATE DATABASE treasurer OWNER treasurer ENCODING 'utf8';
+```sql
+CREATE DATABASE treasurer OWNER treasurer ENCODING 'utf8';
+```
 
 ## Setting Up The App
 
