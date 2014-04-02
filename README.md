@@ -19,6 +19,8 @@ system uploads the resulting tarball (or whatever) to some remote place such as
 S3. It also makes a call to Treasurer saying that at the current time there is
 now an artifact at `$URL` that represents the latest artifact for HelloApp master.
 
+**Note:** Deploys are not done yet.
+
 Later you initiate a deploy to server `dc01-prod-app-0001`. The tools that perform
 your deploy use Treasurer to determine _what_ to deploy and — after a successful
 deploy — you make a call to Treasurer confirming.
@@ -31,7 +33,7 @@ following questions:
 * What was git SHA of the latest artifact?: `/1.0/project/n/latest`
 * Where is the previous artifact for HelloApp:master, in case I need to roll back?: `/1.0/projects/1/artifacts?offset=1`
 * What was the git SHA of the current build as of an arbitrary date in the past?: `/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`
-* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?
+* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: (TBD)
 
 # Examples
 
