@@ -15,48 +15,6 @@ class ArtifactAPISpec extends Specification {
 
   "Artifact API" should {
 
-    "send 400 on a non-json post" in new WithApplication {
-      val result = route(FakeRequest(
-        POST,
-        "/1.0/projects",
-        FakeHeaders(),
-        "some text"
-      ))
-      result must beSome
-      status(result.get) must equalTo(400)
-    }
-
-    "send 400 on a malformed json post" in new WithApplication {
-      val result = route(FakeRequest(
-        POST,
-        "/1.0/projects",
-        FakeHeaders(),
-        Json.obj(
-          "poop" -> "butt"
-        )
-      ))
-      result must beSome
-      status(result.get) must equalTo(400)
-    }
-
-    "verify missing get" in new WithApplication {
-      route(FakeRequest(
-        GET,
-        "/1.0/projects/123"
-      )) must beSome.which(status(_) == 404)
-    }
-
-    "verify empty index" in new WithApplication {
-      // Check index
-      val index = route(FakeRequest(
-        GET,
-        "/1.0/projects"
-      ))
-      index must beSome
-      status(index.get) must beEqualTo(200)
-      contentAsString(index.get) must beEqualTo("[]")
-    }
-
     "send proper codes for create and delete" in new WithApplication {
 
       val project = ProjectModel.create(Project(name = "Stankonia")).get
@@ -176,11 +134,6 @@ class ArtifactAPISpec extends Specification {
       route(FakeRequest(
         DELETE,
         "/1.0/projects/" + project.id.get + "/artifacts/abc124"
-      )) must beSome.which(status(_) == 204) // Make sure we get a no content
-
-      route(FakeRequest(
-        DELETE,
-        "/1.0/projects/" + project.id.get + "/artifacts/abc123"
       )) must beSome.which(status(_) == 204) // Make sure we get a no content
 
       ProjectModel.deleteById(project.id.get)

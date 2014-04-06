@@ -56,14 +56,14 @@ object Artifact extends Controller {
   }
 
   def item(projectId: Long, id: String) = Action {
-    ArtifactModel.getById(projectId, id) map { project =>
-      Ok(Json.toJson(project))
+    ArtifactModel.getById(projectId, id) map { artifact =>
+      Ok(Json.toJson(artifact))
     } getOrElse(NotFound)
   }
 
   def latest(projectId: Long) = Action {
-    ArtifactModel.getLatest(projectId) map { project =>
-      Ok(Json.toJson(project))
+    ArtifactModel.getLatest(projectId) map { artifact =>
+      Ok(Json.toJson(artifact))
     } getOrElse(NotFound)
   }
 }
