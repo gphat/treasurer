@@ -2,13 +2,16 @@
 layout: inner
 title: Treasurer - Examples
 ---
-<div class="container">
+<div class="container" data-spy="scroll" data-target=".nav-example">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-3">
       <div class="affix">
-        <ul class="nav nav-example">
-          <li class="active">
+        <ul class="nav nav-stacked nav-example">
+          <li>
+            <a href="#overview">Overview</a>
+          </li>
+          <li>
             <a href="#versions">Versions</a>
           </li>
           <li>
@@ -31,13 +34,25 @@ title: Treasurer - Examples
     </div>
     <div class="col-md-9">
       <div>
+        <h2 id="overview">Overview</h2>
+        <ul>
+         <li>API calls that accept JSON expect a <code>Content-type</code> of <code>application/json</code>.</li>
+         <li>Dates are expected to be in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format.
+        </ul>
+      </div>
+      <div>
         <h2 id="versions">Versions</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p>All API URLs begin with the version number. Currently there is only one version: <strong>1.0</strong>.</p>
       </div>
       <hr>
       <div>
         <h2 id="projects">Projects</h2>
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <h3>Get All</h3>
+        <p>Returns a list of </p>
+        <code>
+        curl -X GET http://localhost:9000/1.0/projects
+        </code>
       </div>
       <hr>
       <div>
