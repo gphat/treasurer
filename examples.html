@@ -20,7 +20,10 @@ title: Treasurer - Examples
           <li>
             <a href="#projects">Projects</a>
             <ul class="nav">
+              <li><a href="#projects-create">Create</a></li>
+              <li><a href="#projects-delete">Delete</a></li>
               <li><a href="#projects-getAll">Get All</a></li>
+              <li><a href="#projects-getById">Get By Id</a></li>
             </ul>
           </li>
           <li>
@@ -33,37 +36,58 @@ title: Treasurer - Examples
       </div>
     </div>
     <div class="col-md-9">
-      <div>
-        <h2 id="overview">Overview</h2>
-        <ul>
-         <li>API calls that accept JSON expect a <code>Content-type</code> of <code>application/json</code>.</li>
-         <li>Dates are expected to be in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format.
-        </ul>
-      </div>
-      <div>
-        <h2 id="versions">Versions</h2>
-        <p>All API URLs begin with the version number. Currently there is only one version: <strong>1.0</strong>.</p>
-      </div>
+      <h2 id="overview">Overview</h2>
+      <ul>
+       <li>API calls that accept JSON expect a <code>Content-type</code> of <code>application/json</code>.</li>
+       <li>Dates are expected to be in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format.
+      </ul>
+      <h2 id="versions">Versions</h2>
+      <p>All API URLs begin with the version number. Currently there is only one version: <strong>1.0</strong>.</p>
       <hr>
-      <div>
-        <h2 id="projects">Projects</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <h3>Get All</h3>
-        <p>Returns a list of </p>
+      <h2 id="projects">Projects</h2>
+      <p>Create a Project to represent a product, library, application or service. Anything that you create artifacts for such as jars, tarballs or executables.</p>
+      <h3 id="projects-create">Create</h3>
+      <div class="well well-sm">
+        <p>Create a project.</p>
+        <h4>Request</h4>
+        <code>
+        curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects -d '{"name":"treasurer"}'
+        </code>
+      </div>
+      <h3 id="projects-delete">Delete</h3>
+      <div class="well well-sm">
+        <p>Delete a project.</p>
+        <div class="alert alert-warning"><strong>Note:</strong> Attemping to delete a project that has extant deploys or artifacts will result in an error. Delete those first!</div>
+        <h4>Request</h4>
+        <code>
+        curl -X DELETE http://localhost:9000/1.0/projects/1
+        </code>
+      </div>
+      <h3 id="projects-getAll">Get All</h3>
+      <div class="well well-sm">
+        <p>Returns a list of all projects as an array of objects.</p>
+        <h4>Request</h4>
         <code>
         curl -X GET http://localhost:9000/1.0/projects
         </code>
       </div>
-      <hr>
-      <div>
-        <h2 id="artifacts">Artifacts</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <h3 id="project-getById">Get By Id</h3>
+      <div class="well well-sm">
+        <p>Returns the project associated with the provided id.</p>
+        <h4>Request</h4>
+        <code>
+        curl -X GET http://localhost:9000/1.0/projects/1
+        </code>
       </div>
       <hr>
-      <div>
-        <h2 id="deploys">Deploys</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      </div>
+
+      <h2 id="artifacts">Artifacts</h2>
+      <p>An Artifact is the output of your build process, continuous integration or other toolchains. Use Treasurer to find out what's current or what was current last week.</p>
+
+      <hr>
+
+      <h2 id="deploys">Deploys</h2>
+      <p>Make note of the date, time and artifact information each time you deploy an artifact to a device. Query Treasurer to find out what's running where or what was running last Thursday.</p>
    </div>
   </div>
 
