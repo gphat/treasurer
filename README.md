@@ -38,7 +38,7 @@ following questions:
 * What was git SHA of the latest artifact?: `/1.0/projects/1/latest`
 * Where is the previous artifact for HelloApp:master, in case I need to roll back?: `/1.0/projects/1/artifacts?offset=1`
 * What was the git SHA of the current build as of an arbitrary date in the past?: `/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`
-* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: (TBD)
+* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: `/1.0/project/1/deploys?date=2014-04-01T20:17:35Z&device=dc01-prod-app-0001
 
 # Examples
 
@@ -87,6 +87,12 @@ curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/proje
 curl -X GET http://localhost:9000/1.0/projects/1/artifacts
 ```
 
+## Get All Deploys for a Project
+
+```bash
+curl -X GET http://localhost:9000/1.0/projects/1/deploys
+```
+
 ## Get Previous Artifacts for a Project (offset from current)
 
 ```bash
@@ -103,6 +109,12 @@ curl -X GET http://localhost:9000/1.0/projects/1/latest
 
 ```bash
 curl -X GET http://localhost:9000/1.0/projects/1/artifacts/7217c408
+```
+
+## Get a Specific Deploy
+
+```bash
+curl -X GET http://localhost:9000/1.0/projects/1/deploys/123
 ```
 
 ## Get the Artifact Before the Current Artifact

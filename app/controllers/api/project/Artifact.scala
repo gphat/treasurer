@@ -35,7 +35,7 @@ object Artifact extends Controller {
     NoContent
   }
 
-  def index(projectId: Long, offset: Option[Int] = None, date: Option[String]) = Action {
+  def index(projectId: Long, offset: Option[Int] = None, date: Option[String] = None) = Action {
 
     // This kinda sucks. Not happy with this. Different URLs?
     if(date.isDefined) {

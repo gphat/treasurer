@@ -18,6 +18,7 @@ case class Deploy(
 object DeployModel {
 
   val allByProjectQuery = SQL("SELECT * FROM deploys WHERE project_id={project_id}")
+  val getByDateQuery = SQL("SELECT * FROM deploys WHERE project_id={project_id} AND device={device} AND date_created<={date} ORDER BY date_created DESC LIMIT 1")
   val getByIdQuery = SQL("SELECT * FROM deploys WHERE id={id} AND project_id={project_id}")
   val deleteQuery = SQL("DELETE from deploys WHERE project_id={project_id} AND id={id}")
   val insertQuery = SQL("INSERT INTO deploys (project_id, device, artifact_id, date_created, date_internal) VALUES ({project_id}, {device}, {artifact_id}, {date_created}, {date_internal})")
@@ -50,6 +51,21 @@ object DeployModel {
       ).executeInsert() map { id =>
         getById(projectId, id)
       } getOrElse { None }
+    }
+  }
+
+  /**
+   * Get deploy by date.
+   */
+  def getByDate(projectId: Long, device: String, date: DateTime): Option[Deploy] = {
+
+    // Hrm. Should this return the latest if it finds nothing else?
+    DB.withConnection { implicit conn =>
+      getByDateQuery.on(
+        'project_id -> projectId,
+        'device -> device,
+        'date -> date
+      ).as(deploy.singleOpt)
     }
   }
 

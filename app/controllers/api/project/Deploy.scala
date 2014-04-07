@@ -11,7 +11,8 @@ import util.JsonFormats._
 
 object Deploy extends Controller {
 
-  val dateFormat = ISODateTimeFormat.dateTimeParser()
+  val dateParser = ISODateTimeFormat.dateTimeParser()
+  val dateFormatter = ISODateTimeFormat.dateTime()
 
   def create(projectId: Long) = Action(BodyParsers.parse.json) { request =>
     request.body.validate[Deploy] fold(
@@ -37,6 +38,23 @@ object Deploy extends Controller {
 
   def index(projectId: Long) = Action {
     Ok(Json.toJson(DeployModel.getAllForProject(projectId)))
+  }
+
+  def search(projectId: Long, device: String, date: Option[String]) = Action {
+    // If we don't get a date, use the current date.
+    val deployDate = date getOrElse {
+      dateFormatter.print(new DateTime())
+    }
+
+    Try {
+      dateParser.parseDateTime(deployDate)
+    } map { dt =>
+      Ok(Json.toJson(DeployModel.getByDate(projectId, device, dt)))
+    } getOrElse {
+      BadRequest(Json.obj(
+        "message" -> "Bad date format, please use ISO 8601"
+      ))
+    }
   }
 
   def item(projectId: Long, id: Long) = Action {
