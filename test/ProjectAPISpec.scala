@@ -11,7 +11,7 @@ import play.api.test.Helpers._
 
 @RunWith(classOf[JUnitRunner])
 class ProjectAPISpec extends Specification {
-
+  sequential
   "Project API" should {
 
     "send 400 on a non-json post" in new WithApplication {

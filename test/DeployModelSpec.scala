@@ -10,7 +10,7 @@ import play.api.test.Helpers._
 
 @RunWith(classOf[JUnitRunner])
 class DeployModelSpec extends Specification {
-
+  sequential
   "Deploy Model" should {
 
     "create and delete deploys" in new WithApplication{

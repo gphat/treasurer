@@ -16,8 +16,7 @@ GET     /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact
 DELETE  /1.0/projects/:projectId/artifacts/:id  controllers.api.project.Artifact.delete(projectId: Long, id: String)
 GET     /1.0/projects/:projectId/latest         controllers.api.project.Artifact.latest(projectId: Long)
 
-GET     /1.0/projects/:projectId/deploys        controllers.api.project.Deploy.search(projectId: Long, device: String, date: Option[String])
-GET     /1.0/projects/:projectId/deploys        controllers.api.project.Deploy.index(projectId: Long)
+GET     /1.0/projects/:projectId/deploys        controllers.api.project.Deploy.search(projectId: Long, device: Option[String], date: Option[String])
 POST    /1.0/projects/:projectId/deploys        controllers.api.project.Deploy.create(projectId: Long)
 GET     /1.0/projects/:projectId/deploys/:id    controllers.api.project.Deploy.item(projectId: Long, id: Long)
 DELETE  /1.0/projects/:projectId/deploys/:id    controllers.api.project.Deploy.delete(projectId: Long, id: Long)

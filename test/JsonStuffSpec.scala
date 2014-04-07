@@ -15,7 +15,7 @@ import util.JsonFormats._
 
 @RunWith(classOf[JUnitRunner])
 class JsonStuffSpec extends Specification {
-
+  sequential
   val dateFormatter = DateTimeFormat.forPattern("yyyyMMdd'T'HHmmss'Z'")
 
   "Json Formats" should {

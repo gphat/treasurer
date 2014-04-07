@@ -81,6 +81,12 @@ make a new release!
 curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects/1/artifacts -d '{"id":"7217c409", "version":"1.0.1", "url":"http://www.example.com/treasurer-1.0.1.zip"}'
 ```
 
+## Create A Deploy for A Server
+
+```bash
+curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects/1/deploys -d '{"artifactId":"7217c408", "device":"server-1234"}'
+```
+
 ## Get All Artifacts for a Project
 
 ```bash
@@ -129,6 +135,22 @@ Note that this expects ISO8601 dates.
 
 ```bash
 curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?date=2014-04-02T08:14:16Z"
+```
+
+## Get the Latest Deploy for a Device
+
+Note that this expects ISO8601 dates.
+
+```bash
+curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234"
+```
+
+## Get the Deploy for a Device for a Given Date
+
+Note that this expects ISO8601 dates.
+
+```bash
+curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234&date=2014-04-02T08:14:16Z"
 ```
 
 ## Delete an Artifact

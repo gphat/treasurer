@@ -10,7 +10,7 @@ import play.api.test.Helpers._
 
 @RunWith(classOf[JUnitRunner])
 class ArtifactModelSpec extends Specification {
-
+  sequential
   "Artifact Model" should {
 
     "create and delete artifacts" in new WithApplication{

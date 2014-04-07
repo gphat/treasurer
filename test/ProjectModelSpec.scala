@@ -10,7 +10,7 @@ import play.api.test.Helpers._
 
 @RunWith(classOf[JUnitRunner])
 class ProjectModelSpec extends Specification {
-
+  sequential
   "Project Model" should {
 
     "create and delete projects" in new WithApplication{

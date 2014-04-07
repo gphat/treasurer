@@ -10,7 +10,7 @@ import util.JsonFormats._
 
 @RunWith(classOf[JUnitRunner])
 class ArtifactAPISpec extends Specification {
-
+  sequential
   val dateParser = ISODateTimeFormat.dateTimeParser();
 
   "Artifact API" should {
@@ -134,6 +134,11 @@ class ArtifactAPISpec extends Specification {
       route(FakeRequest(
         DELETE,
         "/1.0/projects/" + project.id.get + "/artifacts/abc124"
+      )) must beSome.which(status(_) == 204) // Make sure we get a no content
+
+      route(FakeRequest(
+        DELETE,
+        "/1.0/projects/" + project.id.get + "/artifacts/abc123"
       )) must beSome.which(status(_) == 204) // Make sure we get a no content
 
       ProjectModel.deleteById(project.id.get)

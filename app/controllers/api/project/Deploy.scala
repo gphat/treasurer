@@ -36,24 +36,31 @@ object Deploy extends Controller {
     NoContent
   }
 
-  def index(projectId: Long) = Action {
-    Ok(Json.toJson(DeployModel.getAllForProject(projectId)))
-  }
+  def search(projectId: Long, device: Option[String], date: Option[String]) = Action {
+    // Not happy with this logic. Same in artifact
+    if(device.isDefined) {
+      // If we don't get a date, use the current date.
+      val deployDate = date getOrElse {
+        dateFormatter.print(new DateTime())
+      }
 
-  def search(projectId: Long, device: String, date: Option[String]) = Action {
-    // If we don't get a date, use the current date.
-    val deployDate = date getOrElse {
-      dateFormatter.print(new DateTime())
-    }
-
-    Try {
-      dateParser.parseDateTime(deployDate)
-    } map { dt =>
-      Ok(Json.toJson(DeployModel.getByDate(projectId, device, dt)))
-    } getOrElse {
-      BadRequest(Json.obj(
-        "message" -> "Bad date format, please use ISO 8601"
-      ))
+      Try {
+        dateParser.parseDateTime(deployDate)
+      } map { dt =>
+        Ok(Json.toJson(DeployModel.getByDate(projectId, device.get, dt)))
+      } getOrElse {
+        BadRequest(Json.obj(
+          "message" -> "Bad date format, please use ISO 8601"
+        ))
+      }
+    } else {
+      if(date.isDefined) {
+        BadRequest(Json.obj(
+          "message" -> "Dates can only be used with a specific device parameter"
+        ))
+      } else {
+        Ok(Json.toJson(DeployModel.getAllForProject(projectId)))
+      }
     }
   }
 
