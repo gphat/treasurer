@@ -38,7 +38,7 @@ following questions:
 * What was git SHA of the latest artifact?: `/1.0/projects/1/latest`
 * Where is the previous artifact for HelloApp:master, in case I need to roll back?: `/1.0/projects/1/artifacts?offset=1`
 * What was the git SHA of the current build as of an arbitrary date in the past?: `/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`
-* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: `/1.0/project/1/deploys?date=2014-04-01T20:17:35Z&device=dc01-prod-app-0001
+* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: `/1.0/project/1/deploys?date=2014-04-01T20:17:35Z&device=dc01-prod-app-0001`
 
 # Examples
 
