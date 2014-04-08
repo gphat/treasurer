@@ -19,8 +19,8 @@ title: Treasurer - Examples
             <ul class="nav">
               <li><a href="#projects-create">Create</a></li>
               <li><a href="#projects-delete">Delete</a></li>
-              <li><a href="#projects-getAll">Get All</a></li>
               <li><a href="#projects-getById">Get By Id</a></li>
+              <li><a href="#projects-getAll">Get All</a></li>
             </ul>
           </li>
           <li>
@@ -28,6 +28,8 @@ title: Treasurer - Examples
             <ul class="nav">
               <li><a href="#artifacts-create">Create</a></li>
               <li><a href="#artifacts-delete">Delete</a></li>
+              <li><a href="#artifacts-getById">Get By Id</a></li>
+              <li><a href="#artifacts-getByDate">Get By Date</a></li>
               <li><a href="#artifacts-getAll">Get All</a></li>
               <li><a href="#artifacts-latest">Latest</a></li>
               <li><a href="#artifacts-offset">Offset</a></li>
@@ -38,7 +40,10 @@ title: Treasurer - Examples
             <ul class="nav">
               <li><a href="#deploys-create">Create</a></li>
               <li><a href="#deploys-delete">Delete</a></li>
+              <li><a href="#deploys-getById">Get By Id</a></li>
+              <li><a href="#deploys-getByDate">Get By Date</a></li>
               <li><a href="#deploys-getAll">Get All</a></li>
+              <li><a href="#deploys-latest">Latest</a></li>
             </ul>
           </li>
         </ul>
@@ -70,18 +75,18 @@ curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/proje
 curl -X DELETE http://localhost:9000/1.0/projects/1
 {% endhighlight %}
 
-      <h3 id="projects-getAll">Get All</h3>
-      <p>Returns a list of all projects as an array of objects.</p>
-      <h4>Request</h4>
-{% highlight bash %}
-curl -X GET http://localhost:9000/1.0/projects
-{% endhighlight %}
-
       <h3 id="project-getById">Get By Id</h3>
       <p>Returns the project associated with the provided id.</p>
       <h4>Request</h4>
 {% highlight bash %}
 curl -X GET http://localhost:9000/1.0/projects/1
+{% endhighlight %}
+
+      <h3 id="projects-getAll">Get All</h3>
+      <p>Returns a list of all projects as an array of objects.</p>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET http://localhost:9000/1.0/projects
 {% endhighlight %}
 
       <hr>
@@ -101,6 +106,21 @@ curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/proje
       <h4>Request</h4>
 {% highlight bash %}
 curl -X DELETE http://localhost:9000/1.0/projects/1/artifacts/7217c408
+{% endhighlight %}
+
+      <h3 id="artifacts-getById">Get By Id</h3>
+      <p>Returns the artifact associated with the provided id.</p>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET http://localhost:9000/1.0/projects/1/artifacts/7217c408
+{% endhighlight %}
+
+      <h3 id="artifacts-getByDate">Get By Date</h3>
+      <p>Returns the artifact that was "latest" on a given date.</p>
+      <div class="alert alert-info"><strong>Note:</strong> This expects ISO8601 dates.</div>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?date=2014-04-02T08:14:16Z"
 {% endhighlight %}
 
       <h3 id="artifacts-getAll">Get All</h3>
@@ -141,6 +161,28 @@ curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/proje
       <h4>Request</h4>
 {% highlight bash %}
 curl -X DELETE http://localhost:9000/1.0/projects/1/deploys/1
+{% endhighlight %}
+
+      <h3 id="deploys-getById">Get By Id</h3>
+      <p>Returns the deploy associated with the provided id.</p>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET http://localhost:9000/1.0/projects/1/deploy/1
+{% endhighlight %}
+
+      <h3 id="deploys-getByDate">Get By Date</h3>
+      <p>Returns the deploy that was active on a device on a given date.</p>
+      <div class="alert alert-info"><strong>Note:</strong> This expects ISO8601 dates.</div>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234&date=2014-04-02T08:14:16Z"
+{% endhighlight %}
+
+      <h3 id="deploys-latest">Latest</h3>
+      <p>Returns the latest artifact for a project on a given device.</p>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234"
 {% endhighlight %}
 
       <h3 id="deploys-getAll">Get All</h3>
