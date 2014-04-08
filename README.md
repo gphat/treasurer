@@ -42,75 +42,6 @@ following questions:
 
 # Examples
 
-## Create a Project
-
-```bash
-curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects -d '{"name":"treasurer"}'
-```
-
-## Get All Projects
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects
-```
-
-## Get a Project
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects/1
-```
-
-## Delete a Project
-
-```bash
-curl -X DELETE http://localhost:9000/1.0/projects/1
-```
-
-## Create An Artifact for a Project
-
-You've just finished 1.0.0 of your project. Make an entry!
-
-```bash
-curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects/1/artifacts -d '{"id":"7217c408", "version":"1.0.0", "url":"http://www.example.com/treasurer-1.0.0.zip"}'
-```
-
-After releasing you realize there were a couple bugs. You fix them up and then
-make a new release!
-
-```bash
-curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects/1/artifacts -d '{"id":"7217c409", "version":"1.0.1", "url":"http://www.example.com/treasurer-1.0.1.zip"}'
-```
-
-## Create A Deploy for A Server
-
-```bash
-curl -H "Content-type: application/json" -X POST http://localhost:9000/1.0/projects/1/deploys -d '{"artifactId":"7217c408", "device":"server-1234"}'
-```
-
-## Get All Artifacts for a Project
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects/1/artifacts
-```
-
-## Get All Deploys for a Project
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects/1/deploys
-```
-
-## Get Previous Artifacts for a Project (offset from current)
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects/1/artifacts?offset=1
-```
-
-## Get the Latest Artifact for a Project
-
-```bash
-curl -X GET http://localhost:9000/1.0/projects/1/latest
-```
-
 ## Get a Specific Artifact
 
 ```bash
@@ -121,12 +52,6 @@ curl -X GET http://localhost:9000/1.0/projects/1/artifacts/7217c408
 
 ```bash
 curl -X GET http://localhost:9000/1.0/projects/1/deploys/123
-```
-
-## Get the Artifact Before the Current Artifact
-
-```bash
-curl -X GET "http://localhost:9000/1.0/projects/1/artifacts?offset=1"
 ```
 
 ## Get the Latest Artifact for a Given Date
@@ -151,12 +76,6 @@ Note that this expects ISO8601 dates.
 
 ```bash
 curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234&date=2014-04-02T08:14:16Z"
-```
-
-## Delete an Artifact
-
-```bash
-curl -X DELETE http://localhost:9000/1.0/projects/1/artifacts/7217c408
 ```
 
 # Requirements
