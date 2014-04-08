@@ -22,7 +22,7 @@ class ArtifactAPISpec extends Specification {
       // No latest
       route(FakeRequest(
         GET,
-        "/1.0/projects/" + project.id.get + "/latest"
+        "/1.0/projects/" + project.id.get + "/artifacts/latest"
       )) must beSome.which(status(_) must beEqualTo(404))
 
       // Make an artifact
@@ -59,7 +59,7 @@ class ArtifactAPISpec extends Specification {
       // Get the latest
       val latest = route(FakeRequest(
         GET,
-        "/1.0/projects/" + project.id.get + "/latest"
+        "/1.0/projects/" + project.id.get + "/artifacts/latest"
       ))
       status(latest.get) must beEqualTo(200)
       contentAsString(latest.get) must contain("abc123")
@@ -108,7 +108,7 @@ class ArtifactAPISpec extends Specification {
       // Get the latest
       val latest = route(FakeRequest(
         GET,
-        "/1.0/projects/" + project.id.get + "/latest"
+        "/1.0/projects/" + project.id.get + "/artifacts/latest"
       ))
       status(latest.get) must beEqualTo(200)
       contentAsString(latest.get) must contain("abc124")
