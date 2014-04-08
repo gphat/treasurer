@@ -34,13 +34,13 @@ deploy — you make a call to Treasurer confirming.
 Now other parts of your infrastructure can easily query Treasurer and ask the
 following questions:
 
-* What projects are there?: [`/1.0/projects`](http://gphat.github.io/treasurer/examples.html#projects-getAll)
-* Where is the latest artifact for HelloApp:master?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/examples.html#artifacts-latest)
-* When was the last artifact built?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/examples.html#artifacts-latest)
-* What was git SHA of the latest artifact?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/examples.html#artifacts-latest)
-* Where is the previous artifact for HelloApp:master, in case I need to roll back?: [`/1.0/projects/1/artifacts?offset=1`](http://gphat.github.io/treasurer/examples.html#artifacts-offset)
-* What was the git SHA of the build on a date in the past?: [`/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`](http://gphat.github.io/treasurer/examples.html#artifacts-getByDate)
-* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: [`/1.0/project/1/deploys?date=2014-04-01T20:17:35Z&device=dc01-prod-app-0001`](http://gphat.github.io/treasurer/examples.html#deploys-getByDate)
+* What projects are there?: [`/1.0/projects`](http://gphat.github.io/treasurer/docs.html#projects-getAll)
+* Where is the latest artifact for HelloApp:master?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/docs.html#artifacts-latest)
+* When was the last artifact built?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/docs.html#artifacts-latest)
+* What was git SHA of the latest artifact?: [`/1.0/projects/1/artifacts/latest`](http://gphat.github.io/treasurer/docs.html#artifacts-latest)
+* Where is the previous artifact for HelloApp:master, in case I need to roll back?: [`/1.0/projects/1/artifacts?offset=1`](http://gphat.github.io/treasurer/docs.html#artifacts-offset)
+* What was the git SHA of the build on a date in the past?: [`/1.0/projects/1/artifacts?date=2014-04-01T20:17:35Z`](http://gphat.github.io/treasurer/docs.html#artifacts-getByDate)
+* What git SHA was server dc01-prod-app-0001 running on an arbitrary date?: [`/1.0/project/1/deploys?date=2014-04-01T20:17:35Z&device=dc01-prod-app-0001`](http://gphat.github.io/treasurer/docs.html#deploys-getByDate)
 
 # Requirements
 
