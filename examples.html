@@ -178,18 +178,18 @@ curl -X GET http://localhost:9000/1.0/projects/1/deploy/1
 curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234&date=2014-04-02T08:14:16Z"
 {% endhighlight %}
 
-      <h3 id="deploys-latest">Latest</h3>
-      <p>Returns the latest artifact for a project on a given device.</p>
-      <h4>Request</h4>
-{% highlight bash %}
-curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234"
-{% endhighlight %}
-
       <h3 id="deploys-getAll">Get All</h3>
       <p>Returns a list of all deploys for a project as an array of objects.</p>
       <h4>Request</h4>
 {% highlight bash %}
 curl -X GET http://localhost:9000/1.0/projects/1/deploys
+{% endhighlight %}
+
+      <h3 id="deploys-latest">Latest</h3>
+      <p>Returns the latest artifact for a project on a given device.</p>
+      <h4>Request</h4>
+{% highlight bash %}
+curl -X GET "http://localhost:9000/1.0/projects/1/deploys?device=service-1234"
 {% endhighlight %}
 
    </div>
