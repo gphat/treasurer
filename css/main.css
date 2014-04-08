@@ -1,9 +1,12 @@
-ul.nav ul.nav {
+ul.nav li ul.nav {
+  display: none;
   font-size: 13px;
   margin-left: 7px;
 }
-ul.nav a {
-  padding: 3px;
+ul.nav li.active ul.nav {
+  display: block;
+}
+ul.nav li.active {
 }
 pre code {
   overflow: scroll;
