@@ -25,7 +25,7 @@ db.default.user=treasurer
 db.default.password=""
 ```
 
-### Running The App
+### Running The App (Development)
 
 Start the play REPL:
 
@@ -46,3 +46,14 @@ Run the app!
 ```
 
 Visit [http://localhost:9000](http://localhost:9000) and you'll see an "ok"
+
+### Running The App (Production)
+
+Build the app:
+
+```bash
+play dist
+```
+
+Copy the `treasurer-VERSION.zip` file from target/universal directory to the
+place you'd like to run it. Unzip it and run bin/treasurer!
