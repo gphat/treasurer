@@ -12,6 +12,9 @@ title: Treasurer - Examples
             <a href="#overview">Overview</a>
           </li>
           <li>
+            <a href="#authentication">Authentication</a>
+          </li>
+          <li>
             <a href="#versions">Versions</a>
           </li>
           <li>
@@ -55,6 +58,12 @@ title: Treasurer - Examples
        <li>API calls that accept JSON expect a <code>Content-type</code> of <code>application/json</code>.</li>
        <li>Dates are expected to be in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format.
       </ul>
+      <h2 id="authentication">Authentication</h2>
+      <p>If you add a line `treasurer.token=WHATEVER` to your application.conf then that token must be present in an `Authorization` header in API that add, modify or delete things from Treasurer. For example if you replace WHATEVER with `coryiscool` then your request should look like this:</p>
+{% highlight bash %}
+curl --header "Authorization: coryiscool" -X POST http://localhost:9000/1.0/projects -d '{"name":"treasurer"}'
+{% endhighlight %}
+      <p>Requests that do not include this header and the correct value will be recjected with a 401. <strong>You should probably use this with SSL since otherwise the token will be in plaintext!</strong></p>
       <h2 id="versions">Versions</h2>
       <p>All API URLs begin with the version number. Currently there is only one version: <strong>1.0</strong>.</p>
       <hr>
