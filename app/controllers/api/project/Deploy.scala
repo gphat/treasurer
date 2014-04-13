@@ -1,5 +1,6 @@
 package controllers.api.project
 
+import controllers.AuthenticatedAction
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import models._
@@ -14,7 +15,7 @@ object Deploy extends Controller {
   val dateParser = ISODateTimeFormat.dateTimeParser()
   val dateFormatter = ISODateTimeFormat.dateTime()
 
-  def create(projectId: Long) = Action(BodyParsers.parse.json) { request =>
+  def create(projectId: Long) = AuthenticatedAction(BodyParsers.parse.json) { request =>
     request.body.validate[Deploy] fold(
       valid = { deploy =>
         DeployModel.create(projectId, deploy) map { result =>
@@ -31,7 +32,7 @@ object Deploy extends Controller {
     )
   }
 
-  def delete(projectId: Long, id: Long) = Action {
+  def delete(projectId: Long, id: Long) = AuthenticatedAction {
     DeployModel.deleteById(projectId, id)
     NoContent
   }

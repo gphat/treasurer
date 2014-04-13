@@ -1,5 +1,6 @@
 package controllers.api
 
+import controllers.AuthenticatedAction
 import models._
 import play.api._
 import play.api.libs.json.{Json,JsError}
@@ -8,7 +9,7 @@ import util.JsonFormats._
 
 object Project extends Controller {
 
-  def create = Action(BodyParsers.parse.json) { request =>
+  def create = AuthenticatedAction(BodyParsers.parse.json) { request =>
     request.body.validate[Project] fold(
       valid = { project =>
         ProjectModel.create(project) map { result =>
@@ -25,7 +26,7 @@ object Project extends Controller {
     )
   }
 
-  def delete(id: Long) = Action {
+  def delete(id: Long) = AuthenticatedAction {
     ProjectModel.deleteById(id)
     NoContent
   }

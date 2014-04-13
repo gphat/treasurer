@@ -1,5 +1,6 @@
 package controllers.api.project
 
+import controllers.AuthenticatedAction
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import models._
@@ -13,7 +14,7 @@ object Artifact extends Controller {
 
   val dateFormat = ISODateTimeFormat.dateTimeParser()
 
-  def create(projectId: Long) = Action(BodyParsers.parse.json) { request =>
+  def create(projectId: Long) = AuthenticatedAction(BodyParsers.parse.json) { request =>
     request.body.validate[Artifact] fold(
       valid = { artifact =>
         ArtifactModel.create(projectId, artifact) map { result =>
@@ -30,7 +31,7 @@ object Artifact extends Controller {
     )
   }
 
-  def delete(projectId: Long, id: String) = Action {
+  def delete(projectId: Long, id: String) = AuthenticatedAction {
     ArtifactModel.deleteById(projectId, id)
     NoContent
   }
