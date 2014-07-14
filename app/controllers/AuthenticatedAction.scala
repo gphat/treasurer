@@ -11,7 +11,7 @@ object AuthenticatedAction extends ActionBuilder[Request] {
 
   val maybeToken = Play.configuration.getString("treasurer.token")
 
-  def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[SimpleResult]) = {
+  def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
     maybeToken map { authToken =>
       // If we have a token in the config, we'll check it!
       request.headers.get("Authorization") map { token =>

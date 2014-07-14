@@ -34,24 +34,6 @@ class JsonStuffSpec extends Specification {
       )
     }
 
-    "handle Deploy" in {
-      val theDate = new DateTime()
-      val obj = Deploy(
-        id = Some(1234), device = "server", artifactId = "1.2.3",
-        dateCreated = Some(theDate)
-      )
-      val jsonString = Json.toJson(obj).toString
-
-      val deObj = Json.fromJson[Deploy](Json.parse(jsonString)).asOpt
-      deObj must beSome
-      deObj.get.id must beSome.which(_ == 1234)
-      deObj.get.device must beEqualTo("server")
-      deObj.get.artifactId must beEqualTo("1.2.3")
-      dateFormatter.print(deObj.get.dateCreated.get) must beEqualTo(
-        dateFormatter.print(theDate)
-      )
-    }
-
     "handle Artifact" in {
       val theDate = new DateTime()
       val obj = Artifact(
