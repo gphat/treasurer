@@ -14,16 +14,14 @@ object JsonFormats {
     (JsPath \ "id").read[String] and
     (JsPath \ "version").read[String] and
     (JsPath \ "url").read[String] and
-    (JsPath \ "dateCreated").readNullable[DateTime] and
-    (JsPath \ "dateInternal").readNullable[DateTime]
+    (JsPath \ "dateCreated").readNullable[DateTime]
   )(Artifact.apply _)
 
   val artifactWrites: Writes[Artifact] = (
     (JsPath \ "id").write[String] and
     (JsPath \ "version").write[String] and
     (JsPath \ "url").write[String] and
-    (JsPath \ "dateCreated").writeNullable[DateTime] and
-    (JsPath \ "dateInternal").writeNullable[DateTime]
+    (JsPath \ "dateCreated").writeNullable[DateTime]
   )(unlift(Artifact.unapply))
 
   implicit val artifactFormat: Format[Artifact] = Format(

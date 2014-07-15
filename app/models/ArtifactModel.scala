@@ -13,8 +13,7 @@ case class Artifact(
   id: String,
   version: String,
   url: String,
-  dateCreated: Option[DateTime] = Some(new DateTime()),
-  dateInternal: Option[DateTime] = Some(new DateTime())
+  dateCreated: Option[DateTime] = Some(new DateTime())
 )
 
 object ArtifactModel {

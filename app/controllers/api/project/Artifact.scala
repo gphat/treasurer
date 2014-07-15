@@ -30,8 +30,8 @@ object Artifact extends Controller {
     //     ))
     //   }
     // )
-    request.body.moveTo(new File("/tmp/treasurer/uploaded"))
-    ArtifactModel.create(projectId, id, new File("/tmp/treasurer/uploaded"))
+    request.body.moveTo(new File("/tmp/uploaded"))
+    ArtifactModel.create(projectId, id, new File("/tmp/uploaded"))
     Ok("File uploaded")
   }
 
